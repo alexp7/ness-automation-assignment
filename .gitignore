@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Environments
+.venv/
+venv/
+env/
+
+# IDEs
+.vscode/
+.idea/
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# Caches
+.pytest_cache/
+allure-results/
+allure-report/
+reports/
+screenshots/
+
+# Misc
+.DS_Store
