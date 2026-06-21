@@ -24,8 +24,8 @@ def test_ebay_cart_total_not_exceeds_budget(page):
 
     added_items_count = 0
 
-    for url in urls:
-        if product_page.add_item_to_cart(url):
+    for index, url in enumerate(urls, start=1):
+        if product_page.add_item_to_cart(url, index):
             added_items_count += 1
 
     assert added_items_count > 0, "No items were added to cart."

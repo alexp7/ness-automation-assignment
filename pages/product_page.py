@@ -8,8 +8,11 @@ class ProductPage:
     def __init__(self, page: Page):
         self.page = page
 
-    def add_item_to_cart(self, url: str) -> bool:
-        self.page.goto(url)
+    def add_item_to_cart(self, url: str, item_index: int) -> bool:
+        try:
+            self.page.goto(url)
+        except Exception:
+            return False
 
         add_to_cart_button = self.page.locator(self.ADD_TO_CART_BUTTON)
 
@@ -22,5 +25,7 @@ class ProductPage:
 
         if proceed_button.count() > 0:
             proceed_button.click()
+
+        self.page.screenshot(path=f"screenshots/added_item_{item_index}.png")
 
         return True
