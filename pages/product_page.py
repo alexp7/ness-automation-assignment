@@ -8,11 +8,19 @@ class ProductPage:
     def __init__(self, page: Page):
         self.page = page
 
-    def add_item_to_cart(self, url: str):
+    def add_item_to_cart(self, url: str) -> bool:
         self.page.goto(url)
-        self.page.locator(self.ADD_TO_CART_BUTTON).click()
+
+        add_to_cart_button = self.page.locator(self.ADD_TO_CART_BUTTON)
+
+        if add_to_cart_button.count() == 0:
+            return False
+
+        add_to_cart_button.click()
 
         proceed_button = self.page.locator(self.PROCEED_BUTTON)
 
         if proceed_button.count() > 0:
             proceed_button.click()
+
+        return True

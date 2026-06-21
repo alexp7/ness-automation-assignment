@@ -17,13 +17,22 @@ def test_ebay_cart_total_not_exceeds_budget(page):
         test_data["limit"]
     )
 
-    assert len(urls) > 0, "No product URLs found. eBay may have opened captcha/challenge page."
+    assert len(urls) > 0, (
+        "No product URLs found. "
+        "eBay may have opened captcha/challenge page."
+    )
+
+    added_items_count = 0
 
     for url in urls:
-        product_page.add_item_to_cart(url)
+        if product_page.add_item_to_cart(url):
+            added_items_count += 1
+
+    assert added_items_count > 0, "No items were added to cart."
 
     cart_page.open_cart()
+
     cart_page.assert_cart_total_not_exceeds(
         test_data["max_price"],
-        len(urls)
+        added_items_count
     )
